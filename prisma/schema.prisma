@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Game {
-  id              Int         @id @default(autoincrement())
+  id              Int        @id @default(autoincrement())
   duration        Int
   price           Int?
   client          String?
@@ -23,8 +23,8 @@ model Game {
   time            String
   description     String?
   numberOfPlayers Int?
-  isPay           Boolean     @default(false)
-  typeOfGame      TypeOfGame?
+  isPay           Boolean    @default(false)
+  typeOfGame      TypeOfGame
 }
 
 model Product {

@@ -22,6 +22,7 @@ import {
 import { Input } from '@/shared/ui/input'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/shared/ui/input-otp'
 import { Label } from '@/shared/ui/label'
+import { AxiosError } from 'axios'
 import { LoaderCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -62,12 +63,28 @@ export default function ChooseTime({
     setLoading(true)
     if (date) {
       dateObject = new Date(date)
-      tableGameDateGen(dateObject).then(res => {
-        setLoading(false)
-        setCells(tableGenCells(res))
-        setGames(getGames(res))
-        console.log(getGames(res), tableGameSign(hoursOfPlay, typeOfGame))
-      })
+      tableGameDateGen(dateObject)
+        .then(res => {
+          if (res) {
+            setLoading(false)
+            setCells(tableGenCells(res))
+            setGames(getGames(res))
+            console.log(getGames(res), tableGameSign(hoursOfPlay, typeOfGame))
+          } else {
+            toast({
+              title: 'Ошибка',
+              description: 'Нет данных',
+              variant: 'destructive',
+            })
+          }
+        })
+        .catch((err: AxiosError) => {
+          toast({
+            title: 'Ошибка',
+            description: err.response?.data + '',
+            variant: 'destructive',
+          })
+        })
     }
   }, [date])
 

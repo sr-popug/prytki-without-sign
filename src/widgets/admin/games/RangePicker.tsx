@@ -12,8 +12,8 @@ export default function RangePicker({
   dateState,
 }: {
   dateState: {
-    date: DateRange
-    setDate: React.Dispatch<React.SetStateAction<DateRange>>
+    date: DateRange | undefined
+    setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>
   }
 }) {
   return (

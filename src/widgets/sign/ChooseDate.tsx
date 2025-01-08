@@ -17,7 +17,7 @@ export default function ChooseDate({
     setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
   }
 }) {
-  const [date, setDate] = React.useState<Date>(new Date())
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 

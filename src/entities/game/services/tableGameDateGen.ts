@@ -4,11 +4,11 @@ import axios from 'axios'
 import { GameEntity } from '../domain'
 
 export async function tableGameDateGen(
-  date: Date | null = null,
+  date: Date | undefined = undefined,
   dayRange: {
-    from: Date | null
-    to: Date | null
-  } = { from: null, to: null }
+    from: Date | undefined
+    to: Date | undefined
+  } = { from: undefined, to: undefined }
 ) {
   const days: dateState[] = []
   if (date) {

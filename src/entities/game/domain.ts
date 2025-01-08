@@ -10,11 +10,11 @@ export type GameEntity = {
   description: string | null
   numberOfPlayers: number | null
   isPay: boolean
-  typeOfGame: TypeOfGame | null
+  typeOfGame: TypeOfGame
 }
 
-enum TypeOfGame {
-  reservation,
-  standard,
-  holidayInDark,
+export enum TypeOfGame {
+  reservation = 'reservation',
+  standard = 'standard',
+  holidayInDark = 'holidayInDark',
 }

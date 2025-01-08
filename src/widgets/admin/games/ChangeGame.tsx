@@ -1,5 +1,5 @@
 'use client'
-import { GameEntity } from '@/entities/game/domain'
+import { GameEntity, TypeOfGame } from '@/entities/game/domain'
 import { genPrice } from '@/entities/game/services/genPrice'
 import { toast } from '@/hooks/use-toast'
 import times from '@/lib/times'
@@ -31,29 +31,39 @@ import {
 import { Switch } from '@/shared/ui/switch'
 import { Textarea } from '@/shared/ui/textarea'
 import { PopoverContent } from '@radix-ui/react-popover'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import DeleteButton from './DeleteButton'
+
 export default function ChangeGame({ game }: { game: GameEntity }) {
-  const [date, setDate] = useState<Date>(new Date(game.date))
+  const [date, setDate] = useState<Date | undefined>(new Date(game.date))
   const [phone, setPhone] = useState<string>(game.phone || '')
-  const [type, setType] = useState<string>(game.typeOfGame || 'standard')
+  const [type, setType] = useState<TypeOfGame>(game.typeOfGame)
   const [time, setTime] = useState<string>(game.time)
   const [loading, setLoading] = useState<boolean>(false)
-  const nameRef = useRef(null)
-  const descriptionRef = useRef(null)
-  const numberOfPlayersRef = useRef(null)
-  const timePlayRef = useRef(null)
-  const isPayRef = useRef(null)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const descriptionRef = useRef<HTMLTextAreaElement>(null)
+  const numberOfPlayersRef = useRef<HTMLInputElement>(null)
+  const timePlayRef = useRef<HTMLInputElement>(null)
+  const isPayRef = useRef<HTMLButtonElement>(null)
+
   function phoneChange(newValue: string) {
     setPhone(newValue)
   }
   function submit() {
     setLoading(true)
-    if (type !== 'reservation') {
+    if (
+      type !== 'reservation' &&
+      date &&
+      nameRef.current &&
+      descriptionRef.current &&
+      numberOfPlayersRef.current &&
+      timePlayRef.current &&
+      isPayRef.current
+    ) {
       axios
         .patch(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
           ...game,
@@ -66,12 +76,19 @@ export default function ChangeGame({ game }: { game: GameEntity }) {
           numberOfPlayers: Number(numberOfPlayersRef.current.value),
           isPay: isPayRef.current.value === 'on' ? true : false,
           duration: Number(timePlayRef.current.value),
-          price: Number(genPrice(numberOfPlayersRef.current.value, type)),
+          price: Number(
+            genPrice(Number(numberOfPlayersRef.current.value), type)
+          ),
         })
         .then(() => {
           window.location.reload()
         })
-    } else {
+    } else if (
+      type === 'reservation' &&
+      date &&
+      descriptionRef.current &&
+      timePlayRef.current
+    ) {
       axios
         .patch(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
           ...game,
@@ -89,16 +106,16 @@ export default function ChangeGame({ game }: { game: GameEntity }) {
         .then(() => {
           window.location.reload()
         })
-        .catch(err => {
+        .catch((err: AxiosError) => {
           toast({
             title: 'Ошибка',
-            description: err.response.data.message,
+            description: err.response?.data + '',
             variant: 'destructive',
           })
         })
     }
   }
-  // генерацию цены не забыть отправке
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -108,7 +125,10 @@ export default function ChangeGame({ game }: { game: GameEntity }) {
         <AlertDialogHeader className='flex justify-between items-center flex-row'>
           <AlertDialogTitle>Изменить игру</AlertDialogTitle>
           <div>
-            <Select value={type} onValueChange={setType}>
+            <Select
+              value={type}
+              onValueChange={(value: TypeOfGame) => setType(value)}
+            >
               <SelectTrigger className='w-[180px]'>
                 <SelectValue placeholder='Тип' />
               </SelectTrigger>
@@ -199,7 +219,7 @@ export default function ChangeGame({ game }: { game: GameEntity }) {
                     mode='single'
                     locale={ru}
                     selected={date}
-                    onSelect={setDate}
+                    onSelect={(value: Date | undefined) => setDate(value)}
                     initialFocus
                   />
                 </PopoverContent>
@@ -230,7 +250,7 @@ export default function ChangeGame({ game }: { game: GameEntity }) {
               <div>
                 <label htmlFor='numberOfPlayers'>Количество игроков</label>
                 <Input
-                  defaultValue={game.numberOfPlayers}
+                  defaultValue={game.numberOfPlayers ? game.numberOfPlayers : 2}
                   ref={numberOfPlayersRef}
                   id='numberOfPlayers'
                   type='number'

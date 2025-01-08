@@ -30,7 +30,7 @@ import {
 import { Switch } from '@/shared/ui/switch'
 import { Textarea } from '@/shared/ui/textarea'
 import { PopoverContent } from '@radix-ui/react-popover'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'
@@ -48,18 +48,26 @@ export default function AddGame({
   const [type, setType] = useState<string>('')
   const [time, setTime] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const nameRef = useRef(null)
-  const priceRef = useRef(null)
-  const descriptionRef = useRef(null)
-  const numberOfPlayersRef = useRef(null)
-  const timePlayRef = useRef(null)
-  const isPayRef = useRef(null)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const priceRef = useRef<HTMLInputElement>(null)
+  const descriptionRef = useRef<HTMLTextAreaElement>(null)
+  const numberOfPlayersRef = useRef<HTMLInputElement>(null)
+  const timePlayRef = useRef<HTMLInputElement>(null)
+  const isPayRef = useRef<HTMLButtonElement>(null)
   function phoneChange(newValue: string) {
     setPhone(newValue)
   }
   function submit() {
     setLoading(true)
-    if (type !== 'reservation' && date && nameRef.current) {
+    if (
+      type !== 'reservation' &&
+      date &&
+      nameRef.current &&
+      descriptionRef.current &&
+      numberOfPlayersRef.current &&
+      timePlayRef.current &&
+      isPayRef.current
+    ) {
       axios
         .post(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
           date: dateGame || date.toISOString().slice(0, 10),
@@ -71,19 +79,26 @@ export default function AddGame({
           numberOfPlayers: Number(numberOfPlayersRef.current.value),
           isPay: isPayRef.current.value === 'on' ? true : false,
           duration: Number(timePlayRef.current.value),
-          price: Number(genPrice(numberOfPlayersRef.current.value, type)),
+          price: Number(
+            genPrice(Number(numberOfPlayersRef.current.value), type)
+          ),
         })
         .then(() => {
           window.location.reload()
         })
-        .catch(err => {
+        .catch((err: AxiosError) => {
           toast({
             title: 'Ошибка',
-            description: err.response.data.message,
+            description: err.response?.data + '',
             variant: 'destructive',
           })
         })
-    } else {
+    } else if (
+      type === 'reservation' &&
+      date &&
+      descriptionRef.current &&
+      timePlayRef.current
+    ) {
       axios
         .post(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
           phone: null,
@@ -100,10 +115,10 @@ export default function AddGame({
         .then(() => {
           window.location.reload()
         })
-        .catch(err => {
+        .catch((err: AxiosError) => {
           toast({
             title: 'Ошибка',
-            description: err.response.data.message,
+            description: err.response?.data + '',
             variant: 'destructive',
           })
         })

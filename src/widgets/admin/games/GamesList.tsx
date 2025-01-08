@@ -7,6 +7,7 @@ import tableGenCells, { cell } from '@/entities/game/services/tableGenCells'
 import { useToast } from '@/hooks/use-toast'
 import times from '@/lib/times'
 
+import { AxiosError } from 'axios'
 import { LoaderCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
@@ -14,7 +15,10 @@ import AddGame from './AddGame'
 import ChangeGame from './ChangeGame'
 import RangePicker from './RangePicker'
 export default function GamesList() {
-  const [date, setDate] = useState<DateRange>()
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: new Date(),
+  })
   const [games, setGames] = useState<GameEntity[]>()
   const [loading, setLoading] = useState<boolean>()
   const [cells, setCells] = useState<
@@ -28,11 +32,27 @@ export default function GamesList() {
   useEffect(() => {
     setLoading(true)
     if (date?.to) {
-      tableGameDateGen(null, { from: date.from, to: date.to }).then(res => {
-        setLoading(false)
-        setCells(tableGenCells(res))
-        setGames(getGames(res))
-      })
+      tableGameDateGen(undefined, { from: date.from, to: date.to })
+        .then(res => {
+          if (res) {
+            setGames(getGames(res))
+            setCells(tableGenCells(res))
+            setLoading(false)
+          } else {
+            toast({
+              title: 'Ошибка',
+              description: 'Нет данных',
+              variant: 'destructive',
+            })
+          }
+        })
+        .catch((err: AxiosError) => {
+          toast({
+            title: 'Ошибка',
+            description: err.response?.data + '',
+            variant: 'destructive',
+          })
+        })
     }
   }, [date])
 
