@@ -39,7 +39,7 @@ export default function tableGenCells(days: dateState[]) {
           }
         }
 
-        i += (day.games.find(game => game.time === times[i])?.duration || 1) - 1
+        i += (day.games.find(game => game.time === times[i])?.duration || 2) - 1
       } else {
         dayCells.push({
           color: 'null',

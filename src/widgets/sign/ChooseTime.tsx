@@ -69,7 +69,6 @@ export default function ChooseTime({
             setLoading(false)
             setCells(tableGenCells(res))
             setGames(getGames(res))
-            console.log(getGames(res), tableGameSign(hoursOfPlay, typeOfGame))
           } else {
             toast({
               title: 'Ошибка',

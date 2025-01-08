@@ -4,7 +4,6 @@ import { NextRequest } from 'next/server'
 export async function POST(NextRequest: NextRequest) {
   const data = await NextRequest.json()
   try {
-    console.log(data, 1)
     const result = await prisma.game.create({
       data: data,
     })
@@ -16,7 +15,6 @@ export async function POST(NextRequest: NextRequest) {
 export async function GET(NextRequest: NextRequest) {
   const searchParams = NextRequest.nextUrl.searchParams
   const query = searchParams.get('date') || ''
-  console.log(query)
   if (query) {
     try {
       const games = await prisma.game.findMany({
@@ -40,7 +38,6 @@ export async function GET(NextRequest: NextRequest) {
 export async function DELETE(NextRequest: NextRequest) {
   const searchParams = NextRequest.nextUrl.searchParams
   const query = searchParams.get('id') || ''
-  console.log(searchParams)
   if (query) {
     try {
       const games = await prisma.game.delete({

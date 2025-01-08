@@ -1,8 +1,6 @@
 'use client'
 
-import { GameEntity } from '@/entities/game/domain'
 import { tableGameDateGen } from '@/entities/game/server'
-import getGames from '@/entities/game/services/getGames'
 import tableGenCells, { cell } from '@/entities/game/services/tableGenCells'
 import { useToast } from '@/hooks/use-toast'
 import times from '@/lib/times'
@@ -16,10 +14,9 @@ import ChangeGame from './ChangeGame'
 import RangePicker from './RangePicker'
 export default function GamesList() {
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(),
+    from: new Date(new Date().setDate(new Date().getDate() - 1)),
+    to: new Date(new Date().setDate(new Date().getDate() + 3)),
   })
-  const [games, setGames] = useState<GameEntity[]>()
   const [loading, setLoading] = useState<boolean>()
   const [cells, setCells] = useState<
     {
@@ -35,7 +32,6 @@ export default function GamesList() {
       tableGameDateGen(undefined, { from: date.from, to: date.to })
         .then(res => {
           if (res) {
-            setGames(getGames(res))
             setCells(tableGenCells(res))
             setLoading(false)
           } else {
