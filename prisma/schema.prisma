@@ -20,9 +20,10 @@ model Game {
   client          String?
   phone           String?
   date            String
+  time            String
   description     String?
   numberOfPlayers Int?
-  typeOfPay       TypeOfPay?
+  isPay           Boolean     @default(false)
   typeOfGame      TypeOfGame?
 }
 
@@ -33,11 +34,6 @@ model Product {
   description String
   link        String
   photo       String
-}
-
-enum TypeOfPay {
-  online
-  offline
 }
 
 enum TypeOfGame {

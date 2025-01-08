@@ -9,15 +9,23 @@ import { ru } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'
 import * as React from 'react'
 
-export default function ChooseDate({ dateState }: any) {
-  const [date, setDate] = React.useState<Date>()
+export default function ChooseDate({
+  dateState,
+}: {
+  dateState: {
+    date: Date | undefined
+    setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+  }
+}) {
+  const [date, setDate] = React.useState<Date>(new Date())
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
     dateState.setDate(date)
   }
 
   return (
-    <form onSubmit={submit} className='choose-date mt-3'>
+    <form id='choose-date' onSubmit={submit} className='choose-date mt-3'>
       <h2 className='block text-xl  mb-2'>Выберите подходящее для вас дату:</h2>
       <Popover>
         <PopoverTrigger asChild>

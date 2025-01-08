@@ -4,8 +4,8 @@ import styles from './header.module.css'
 
 export default function Header() {
   return (
-    <header className='main-header mx-auto max-w-full  font-sans flex items-center mt-1 justify-between'>
-      <Link href='/' className='logo mr-16'>
+    <header className='main-header mx-auto max-w-full  font-sans flex items-center mt-1 justify-between h-20'>
+      <Link href='/' className=' block logo mr-16 sm:hidden xl:block'>
         <Image
           src='/logo-head.png'
           alt='Логотип пряток'
@@ -13,7 +13,8 @@ export default function Header() {
           height={55}
         />
       </Link>
-      <nav>
+
+      <nav className='lg:ml-2'>
         <ul className='list-none flex  gap-12 '>
           {[
             ['Главная', '/'],
@@ -23,7 +24,7 @@ export default function Header() {
           ].map(([title, href]) => (
             <li key={title}>
               <Link
-                className='transition-colors hover:text-prytki text-xl font-thin '
+                className='transition-colors text-nowrap  hover:text-prytki text-xl font-thin '
                 href={href}
               >
                 {title}
@@ -35,14 +36,14 @@ export default function Header() {
       <article className='right ml-24 flex  items-center gap-4'>
         <a
           href='tel:782017'
-          className={`${styles.phone} font-serif text-4xl text-center hover:text-prytki transition-colors`}
+          className={`${styles.phone} font-serif text-nowrap text-4xl text-center hover:text-prytki transition-colors`}
         >
           78-2017
         </a>
 
         <Link
           href='/sign'
-          className='font-serif text-3xl text-center bg-prytki py-1 px-12 rounded-xl text-black hover:bg-yellow-600 transition-colors'
+          className='font-serif text-3xl text-center bg-prytki py-1 px-12 rounded-xl text-black hover:bg-yellow-600 text-nowrap  transition-colors block lg:mr-2'
         >
           Записаться на игру
         </Link>

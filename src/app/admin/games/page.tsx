@@ -1,6 +1,6 @@
 import AddGame from '@/widgets/admin/games/AddGame'
+import GameList from '@/widgets/admin/games/GamesList'
 import Image from 'next/image'
-
 export default function GamesPageAdmin() {
   return (
     <article className=''>
@@ -17,8 +17,9 @@ export default function GamesPageAdmin() {
             height={30}
           />
         </div>
-        <AddGame />
+        <AddGame dateGame={''} timeGame={''} />
       </header>
+      <GameList />
     </article>
   )
 }

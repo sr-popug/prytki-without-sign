@@ -4,17 +4,13 @@ export type GameEntity = {
   client: string | null
   price: number | null
   date: string
+  time: string
   dateForSearch: string
   phone: string | null
   description: string | null
   numberOfPlayers: number | null
-  typeOfPay: TypeOfPay | null
+  isPay: boolean
   typeOfGame: TypeOfGame | null
-}
-
-enum TypeOfPay {
-  online,
-  offline,
 }
 
 enum TypeOfGame {

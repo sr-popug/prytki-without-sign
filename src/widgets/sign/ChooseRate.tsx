@@ -1,10 +1,22 @@
 'use client'
 
+import { genPrice } from '@/entities/game/services/genPrice'
 import { Card } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
 import { useState } from 'react'
-
-export default function ChooseRate({ rateState }: any) {
+export interface rate {
+  rate: 'standard' | 'holidayInDark'
+  numberOfPlayers: number
+  price: number
+}
+export default function ChooseRate({
+  rateState,
+}: {
+  rateState: {
+    setRate: React.Dispatch<React.SetStateAction<rate | undefined>>
+    rate: rate | undefined
+  }
+}) {
   const [activeCard, setActiveCard] = useState('')
   const [numberOfPlayers, setNumberOfPlayers] = useState(2)
   function changeNumberOfPlayers(e: React.ChangeEvent<HTMLInputElement>) {
@@ -15,12 +27,13 @@ export default function ChooseRate({ rateState }: any) {
     const target = e.target as Element
     setActiveCard(target.classList[0])
     rateState.setRate({
-      rate: target.classList[0],
+      rate: target.classList[0] == 'standard' ? 'standard' : 'holidayInDark',
       numberOfPlayers,
+      price: genPrice(numberOfPlayers, target.classList[0]),
     })
   }
   return (
-    <div className='choose-rate mt-16'>
+    <div id='choose-rate' className='choose-rate mt-16'>
       <h2 className='block text-xl  mb-2'>
         Выберите тариф и количество участников
       </h2>
@@ -37,7 +50,7 @@ export default function ChooseRate({ rateState }: any) {
           className='w-16 mt-2 text-lg'
           placeholder='0'
           type='number'
-          max={50}
+          max={60}
           min={2}
         />
         <p className='text-lg'>Участников</p>
@@ -49,7 +62,7 @@ export default function ChooseRate({ rateState }: any) {
             title: 'Праздник в темноте! ',
             description:
               'Веселый праздничный пакет для команды отважных друзей.',
-            numberOfPlayers: 'от 4 до 40 игроков',
+            numberOfPlayers: 'от 4 до 60 игроков',
             options: [
               '3 - 4 раунда игры',
               'Праздничное чаепитие',
@@ -57,18 +70,22 @@ export default function ChooseRate({ rateState }: any) {
               'Игра в мафию с ведущим',
               'Эксклюзивный раунд с актёром',
               'Антуражная зона отдыха',
-              'Фотоссесия',
+              'Фотосессия',
               'Актёр в локации, который будет всячески пугать игроков ',
               'Незабываемые эмоции от веселого праздника',
             ],
-            oldPrice: '12.000 ₽',
-            price: '9.500 ₽',
+            minPlayers: 4,
+            oldPrice:
+              genPrice(numberOfPlayers, 'holidayInDark') +
+              numberOfPlayers * 150 +
+              ' ₽',
+            price: genPrice(numberOfPlayers, 'holidayInDark') + ' ₽',
           },
           {
             type: 'standard',
             title: 'Обычная игра ',
             description: 'Самая обычная игра “Прятки в темноте”',
-            numberOfPlayers: 'от 2 до 20 игроков',
+            numberOfPlayers: 'от 2 до 60 игроков',
             options: [
               '2 раунда игры',
               'Актёр в локации, который будет всячески пугать игроков',
@@ -76,14 +93,15 @@ export default function ChooseRate({ rateState }: any) {
               'Большая интересная локация с ловушками',
               'Антуражная зона отдыха',
             ],
+            minPlayers: 2,
 
-            price: '7.000 ₽',
+            price: genPrice(numberOfPlayers, 'standard'),
           },
         ].map((item, index) => (
           <Card
             key={index}
             className={`${activeCard === item.type ? 'border-prytki' : ''} ${
-              numberOfPlayers <= 1 ? 'opacity-50' : ''
+              numberOfPlayers < item.minPlayers ? 'opacity-50' : ''
             } w-[49%] p-6 text-lg flex flex-col justify-between transition-all duration-300 `}
           >
             <div className='top-content'>
@@ -113,9 +131,9 @@ export default function ChooseRate({ rateState }: any) {
             </div>
             <footer className='footer mt-8 flex justify-between items-center'>
               <button
-                disabled={numberOfPlayers <= 1}
+                disabled={numberOfPlayers < item.minPlayers}
                 onClick={submitCard}
-                className={`${item.type} text-lg  px-16 py-2 text-black rounded-md bg-prytki hover:bg-yellow-600 text-xl disabled:hover:bg-prytki`}
+                className={`${item.type}  px-16 py-2 text-black rounded-md bg-prytki hover:bg-yellow-600 text-xl disabled:hover:bg-prytki`}
               >
                 Выбрать
               </button>

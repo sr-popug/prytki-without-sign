@@ -13,9 +13,9 @@ export default {
         handelson: ['var(--font-handelson)'],
       },
       screens: {
-        sm: '500px',
-        md: '800px',
-        lg: '1024px',
+        sm: '400px',
+        md: '700px',
+        lg: '900px',
       },
 
       colors: {

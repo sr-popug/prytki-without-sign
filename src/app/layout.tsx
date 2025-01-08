@@ -1,5 +1,6 @@
 import Footer from '@/shared/ui/footer/Footer'
 import Header from '@/shared/ui/header/Header'
+import { Toaster } from '@/shared/ui/toaster'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Image from 'next/image'
@@ -50,8 +51,6 @@ export default function RootLayout({
       <body
         className={`${handelson.variable} ${jolly.variable} ${goshaSanBold.variable} ${goshaSansRegular.variable} antialiased bg-backgroundPage overflow-x-hidden`}
       >
-        <script src='https://api-maps.yandex.ru/v3/?apikey=d7d65dde-198b-4d7b-a8b2-0820737b152f&lang=ru_RU'></script>
-
         <Header />
         <main className='mx-auto max-w-full  font-sans relative'>
           <article className='background absolute -z-10'>
@@ -78,6 +77,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Toaster />
       </body>
     </html>
   )

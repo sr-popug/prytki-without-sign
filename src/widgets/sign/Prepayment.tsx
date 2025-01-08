@@ -1,20 +1,66 @@
-import { Button } from '@/shared/ui/button'
+'use client'
 import { Input } from '@/shared/ui/input'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/shared/ui/input-otp'
 import { Textarea } from '@/shared/ui/textarea'
-
-export default function Prepayment() {
+import React from 'react'
+export interface contactData {
+  phone: string
+  name: string
+  description: string
+}
+export default function Prepayment({
+  contactDataState,
+}: {
+  contactDataState: {
+    setContactData: React.Dispatch<React.SetStateAction<contactData>>
+    contactData: contactData
+  }
+}) {
+  function phoneChange(newValue: string) {
+    contactDataState.setContactData((prev: contactData) => {
+      return {
+        ...prev,
+        phone: newValue,
+      }
+    })
+  }
+  function nameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    contactDataState.setContactData((prev: contactData) => {
+      return {
+        ...prev,
+        name: e.target.value,
+      }
+    })
+  }
+  function descriptionChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    contactDataState.setContactData((prev: contactData) => {
+      return {
+        ...prev,
+        description: e.target.value,
+      }
+    })
+  }
   return (
-    <article className='prepayment mt-16'>
+    <article id='prepayment' className='prepayment mt-16'>
       <h2 className='block text-xl  mb-2'>Ваши контактные данные</h2>
       <div className='flex gap-5 mt-5'>
         <div>
           <p>Ваше имя</p>
-          <Input id='name' className='mt-1 text-lg w-64' placeholder='Имя' />
+          <Input
+            value={contactDataState.contactData.name}
+            onChange={nameChange}
+            id='name'
+            className='mt-1 text-lg w-64'
+            placeholder='Имя'
+          />
         </div>
         <div>
           <p>Номер телефона</p>
-          <InputOTP maxLength={10}>
+          <InputOTP
+            value={contactDataState.contactData.phone}
+            onChange={phoneChange}
+            maxLength={10}
+          >
             +7 (
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -41,11 +87,12 @@ export default function Prepayment() {
         </div>
       </div>
       <p className='mt-4 mb-1'>Комментарий</p>
-      <Textarea className='w-1/3 h-36' placeholder='Комментарий' />
-
-      <Button className='mt-5 w-1/3 text-lg py-5 hover:bg-prytki'>
-        Забронировать
-      </Button>
+      <Textarea
+        value={contactDataState.contactData.description}
+        onChange={descriptionChange}
+        className='w-1/3 h-36'
+        placeholder='Комментарий'
+      />
     </article>
   )
 }

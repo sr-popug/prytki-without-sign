@@ -17,22 +17,12 @@ export default function MainPage() {
         />
       </header>
 
-      <ul className='links mt-16 flex justify-between  '>
+      <ul className='links mt-16 flex justify-around  '>
         {[
           {
             title: 'Игры',
             link: '/admin/games',
             img: '/photo-2.png',
-          },
-          {
-            title: 'Товары',
-            link: '/admin/products',
-            img: '/photo-6.png',
-          },
-          {
-            title: 'Пользователи',
-            link: '/admin/users',
-            img: '/photo-7.png',
           },
         ].map(({ title, link, img }) => (
           <li
