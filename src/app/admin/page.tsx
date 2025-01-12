@@ -1,3 +1,5 @@
+'use client'
+
 import MainPage from '@/widgets/admin/MainPage'
 import Auth from '@/widgets/Auth'
 

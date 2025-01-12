@@ -1,3 +1,4 @@
+'use client'
 import AddGame from '@/widgets/admin/games/AddGame'
 import GameList from '@/widgets/admin/games/GamesList'
 import Auth from '@/widgets/Auth'
