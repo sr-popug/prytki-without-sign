@@ -1,12 +1,10 @@
-import Login from '@/widgets/admin/Login'
 import MainPage from '@/widgets/admin/MainPage'
+import Auth from '@/widgets/Auth'
 
 export default function AdminPage() {
-  const userIsAdmin = true
   return (
-    <>
-      {userIsAdmin && <MainPage />}
-      {!userIsAdmin && <Login />}
-    </>
+    <Auth>
+      <MainPage />
+    </Auth>
   )
 }

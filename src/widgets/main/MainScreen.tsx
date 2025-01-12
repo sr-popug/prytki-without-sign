@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function MainScreen() {
   return (
     <article className='main-screen relative'>
-      <article className='content flex items-center justify-between mt-28 '>
+      <article className='content flex items-center justify-between mt-48 '>
         <div className='left flex flex-col items-center'>
           <Image src={'/logo.png'} alt='main-screen' width={450} height={450} />
           <p className='text-prytki font-serif text-3xl text-center -mt-10'>

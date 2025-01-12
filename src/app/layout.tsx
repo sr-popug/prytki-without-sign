@@ -52,7 +52,7 @@ export default function RootLayout({
         className={`${handelson.variable} ${jolly.variable} ${goshaSanBold.variable} ${goshaSansRegular.variable} antialiased bg-backgroundPage overflow-x-hidden`}
       >
         <Header />
-        <main className='mx-auto max-w-full  font-sans relative'>
+        <main className='mx-auto max-w-full mt-24  font-sans relative'>
           <article className='background absolute -z-10'>
             <div className='left-text font-handelson text-8xl drop-shadow-[0_1.2px_1.2px_rgba(254,205,3,0.1)] text-backgroundPage -mt-20 relative right-2/4'>
               От темноты не спрятаться <br /> От темноты не спрятаться <br />
