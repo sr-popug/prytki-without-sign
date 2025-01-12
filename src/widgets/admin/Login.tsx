@@ -22,8 +22,9 @@ export default function Login() {
   function submit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     if (
+      typeof window !== 'undefined' &&
       process.env.NEXT_PUBLIC_TOKEN ==
-      loginRef.current?.value + '@' + passwordRef.current?.value
+        loginRef.current?.value + '@' + passwordRef.current?.value
     ) {
       localStorage.setItem('token', process.env.NEXT_PUBLIC_TOKEN)
       window.location.reload()
