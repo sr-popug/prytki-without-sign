@@ -4,9 +4,8 @@ import styles from './header.module.css'
 import HeaderMenu from './HeaderMenu'
 
 export default function Header() {
-  function activeMenu() {}
   return (
-    <header className='main-header fixed top-0 left-0 right-0 z-50 bg-opacity-70 bg-black h-16'>
+    <header className='main-header fixed top-0 left-0 right-0 z-50 bg-opacity-70 bg-black h-16 box-border w-[100vw]'>
       <div className='mx-auto max-w-full  font-sans flex items-center mt-1 justify-between h-16'>
         <Link href='/' className='logo mr-16 block'>
           <Image

@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html className='dark' lang='ru'>
       <body
-        className={`${handelson.variable} ${jolly.variable} ${goshaSanBold.variable} ${goshaSansRegular.variable} antialiased bg-backgroundPage overflow-x-hidden`}
+        className={`${handelson.variable} ${jolly.variable} ${goshaSanBold.variable} ${goshaSansRegular.variable} antialiased bg-backgroundPage overflow-x-hidden w-[100vw]`}
       >
         <Header />
         <main className='mx-auto max-w-full mt-24  font-sans relative'>
