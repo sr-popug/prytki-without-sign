@@ -4,18 +4,18 @@ export default function FeedbackPage() {
   return (
     <div className='flex items-center justify-center flex-col'>
       <header className='relative mt-8 '>
-        <h2 className='text-prytki font-serif text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
+        <h2 className='text-prytki font-serif text-center md:text-left text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
           Что говорят о нас люди?
         </h2>
         <Image
-          className='absolute -z-10 top-8'
+          className='absolute -z-10 top-8 hidden md:block '
           src={'/header-back.svg'}
           alt='about-game'
           width={450}
           height={50}
         />
       </header>
-      <div className='w-[600px] h-[800px] overflow-hidden relative'>
+      <div className='w-full h-[800px] md:w-[600px] overflow-hidden relative'>
         <iframe
           className='w-full h-full border-prytki border-[1px] border-solid rounded-lg box-border mt-5 '
           src='https://yandex.ru/maps-reviews-widget/88918161707?comments'

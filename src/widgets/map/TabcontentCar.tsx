@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
-export default function TabcontentCar() {
+export default function TabContentCar() {
   return (
     <>
-      <article className='flex justify-between place-items-start mb-4 text-lg gap-10'>
+      <article className='ml-4 xl:ml-0 flex justify-between place-items-start mb-4 text-lg gap-10'>
         <div>
           <ol className='list-decimal list-inside mb-5'>
             <li className='mb-3'>
@@ -36,7 +36,13 @@ export default function TabcontentCar() {
             темной дверью и табличкой "Гарин" над ней.
           </p>
         </div>
-        <Image src={'/door.webp'} alt='map' width={200} height={300} />
+        <Image
+          className='md:block hidden'
+          src={'/door.webp'}
+          alt='map'
+          width={200}
+          height={300}
+        />
       </article>
 
       <iframe

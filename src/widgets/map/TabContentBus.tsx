@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function TabcontentBus() {
   return (
     <>
-      <article className='flex justify-between place-items-start mb-4 text-lg gap-10'>
+      <article className='ml-4 xl:ml-0 flex justify-between place-items-start mb-4 text-lg gap-10'>
         <div>
           <p className='mb-2'>
             Вы можете добраться до нас несколькими способами:
@@ -48,7 +48,13 @@ export default function TabcontentBus() {
             темной дверью и табличкой "Гарин" над ней.
           </p>
         </div>
-        <Image src={'/door.webp'} alt='map' width={200} height={300} />
+        <Image
+          className='md:block hidden'
+          src={'/door.webp'}
+          alt='map'
+          width={200}
+          height={300}
+        />
       </article>
       <iframe
         src='https://yandex.ru/map-widget/v1/?um=constructor%3Af6381d9fc4be061ab54d53b83ea672597e381eb0293a5c9dedd7f8bb65299749&amp;source=constructor'
