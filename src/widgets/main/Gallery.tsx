@@ -13,11 +13,11 @@ export default function Gallery() {
       <section className='background'></section>
       <section className='content'>
         <header className='relative'>
-          <h2 className='text-prytki font-serif text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
+          <h2 className='text-prytki font-serif text-center smd:text-left text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
             Наш интерьер
           </h2>
           <Image
-            className='absolute -z-10 top-8'
+            className='absolute -z-10 top-8 hidden smd:block'
             src={'/header-back-medium.svg'}
             alt='about-game'
             width={330}

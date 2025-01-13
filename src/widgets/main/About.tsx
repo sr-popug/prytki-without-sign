@@ -15,18 +15,18 @@ export default function About() {
       </section>
       <section className='content'>
         <header className='relative'>
-          <h2 className='text-prytki font-serif text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
+          <h2 className='text-prytki text-center smd:text-left font-serif text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
             О нас
           </h2>
           <Image
-            className='absolute -z-10 top-8'
+            className='absolute -z-10 top-8 hidden smd:block'
             src={'/header-back-mini.svg'}
             alt='about-game'
             width={150}
             height={50}
           />
         </header>
-        <article className='cards mt-10 flex  justify-between'>
+        <article className='cards mt-10 smd:flex flex-wrap justify-around lg:flex-nowrap   lg:justify-between'>
           {[
             [
               'photo-5.png',
@@ -49,7 +49,7 @@ export default function About() {
                 width={200}
                 height={200}
               />
-              <p className='mt-5 font-sans text-center text-white text-lg   max-w-72'>
+              <p className='mt-5 min-w-64 font-sans text-center text-white text-lg   max-w-72'>
                 {text}
               </p>
             </div>

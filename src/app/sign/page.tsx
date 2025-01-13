@@ -71,7 +71,7 @@ export default function SignPage() {
   return (
     <article className='sign-page'>
       <header className='relative mt-8 '>
-        <h2 className='text-prytki font-serif text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
+        <h2 className='text-prytki font-serif text-5xl smd:text-6xl ml-5 drop-shadow-[0_5.10px_5px_rgba(254,205,3,0.2)]'>
           Записаться на игру!
         </h2>
         <Image

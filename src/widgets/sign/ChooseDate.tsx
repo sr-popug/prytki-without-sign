@@ -26,35 +26,39 @@ export default function ChooseDate({
 
   return (
     <form id='choose-date' onSubmit={submit} className='choose-date mt-3'>
-      <h2 className='block text-xl  mb-2'>Выберите подходящее для вас дату:</h2>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant={'outline'}
-            className={cn(
-              'w-[320px] text-lg justify-start text-left font-normal',
-              !date && 'text-muted-foreground'
-            )}
-          >
-            <CalendarIcon />
-            {date ? format(date, 'PPP') : <span>Выберите дату</span>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className='w-auto p-0' align='start'>
-          <Calendar
-            mode='single'
-            locale={ru}
-            selected={date}
-            onSelect={setDate}
-            disabled={date =>
-              // @ts-ignore: Unreachable code error
-              date < new Date().setDate(new Date().getDate() - 1)
-            }
-            initialFocus
-          />
-        </PopoverContent>
-      </Popover>
-      <Button className='text-lg ml-5	hover:bg-gray-400'>Подтвердить</Button>
+      <h2 className='block text-lg smd:text-xl  mb-2'>
+        Выберите подходящее для вас дату:
+      </h2>
+      <div className='flex gap-3'>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={'outline'}
+              className={cn(
+                'w-[230px] smd:w-[320px] text-lg justify-start text-left font-normal',
+                !date && 'text-muted-foreground'
+              )}
+            >
+              <CalendarIcon />
+              {date ? format(date, 'PPP') : <span>Выберите дату</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className='w-auto p-0' align='start'>
+            <Calendar
+              mode='single'
+              locale={ru}
+              selected={date}
+              onSelect={setDate}
+              disabled={date =>
+                // @ts-ignore: Unreachable code error
+                date < new Date().setDate(new Date().getDate() - 1)
+              }
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+        <Button className='text-lg	hover:bg-gray-400'>Подтвердить</Button>
+      </div>
     </form>
   )
 }
