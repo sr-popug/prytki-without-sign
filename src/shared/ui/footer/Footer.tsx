@@ -1,3 +1,4 @@
+import headerConfig from '@/lib/headerConfig'
 import { Earth, Phone } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -24,28 +25,27 @@ mb'
           className='absolute -z-10 top-[-130px]  opacity-10'
         />
       </article>
-      <article className='content flex  justify-between text-lg'>
+      <article className='content ml-3 md:ml-0 flex flex-col-reverse gap-3 md:flex-row  justify-between text-lg'>
         <div className='left'>
           <Link
-            href='/map'
+            href={headerConfig.address[1]}
             className='flex items-center gap-3 mb-4 hover:text-prytki transition-colors'
           >
-            <Earth /> г. Мурманск, ул. Инженерная 22
+            <Earth /> {headerConfig.address[0]}
           </Link>
+          {headerConfig.contacts.phones.map(phone => (
+            <Link
+              key={phone[0]}
+              href={`tel:${phone[1]}`}
+              className='flex items-center gap-3 mb-4 hover:text-prytki transition-colors'
+            >
+              <Phone /> {phone[0]}
+            </Link>
+          ))}
+
           <a
-            href='tel:782017'
-            className='flex items-center gap-3 mb-4 hover:text-prytki transition-colors'
-          >
-            <Phone /> 78-2017
-          </a>
-          <a
-            href='tel:+78152782017'
-            className='flex items-center gap-3 mb-4 hover:text-prytki transition-colors'
-          >
-            <Phone /> +7(815) 278-20-17
-          </a>
-          <a
-            href='https://vk.com/tamtemnomurmansk'
+            target='_blank'
+            href={headerConfig.contacts.vk}
             className='underline hover:text-prytki transition-colors'
           >
             {' '}
@@ -53,42 +53,21 @@ mb'
           </a>
         </div>
         <div className='right '>
-          <Link
-            href='/'
-            className='hover:text-prytki transition-colors block mb-4'
-          >
-            ГЛАВНАЯ
-          </Link>
-          <Link
-            href='/products'
-            className='hover:text-prytki transition-colors block mb-4'
-          >
-            ТОВАРЫ
-          </Link>
-          <Link
-            href='/feedback'
-            className='hover:text-prytki transition-colors block mb-4'
-          >
-            ОТЗЫВЫ
-          </Link>
-          <Link
-            href='/map'
-            className='hover:text-prytki transition-colors block mb-4'
-          >
-            КАК ДО НАС ДОБРАТЬСЯ
-          </Link>
-          <Link
-            href='/sign'
-            className='hover:text-prytki transition-colors block mb-4'
-          >
-            ЗАПИСАТЬСЯ НА ИГРУ!
-          </Link>
-          <div className='copyright text-gray-500 '>
-            Сайт создал Цуканов Антон / © 2024 <br />
-            Прятки в темноте г. Мурманск
-          </div>
+          {headerConfig.navigation.links.map(link => (
+            <Link
+              key={link.title}
+              href={link.href}
+              className='hover:text-prytki uppercase transition-colors block mb-4'
+            >
+              {link.title}
+            </Link>
+          ))}
         </div>
       </article>
+      <div className=' ml-3 mt-2 md:ml-0 copyright text-end text-gray-800 '>
+        Сайт создал Цуканов Антон / © 2024 <br />
+        Прятки в темноте г. Мурманск
+      </div>
     </footer>
   )
 }

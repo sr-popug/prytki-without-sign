@@ -116,7 +116,7 @@ export default function ChooseTime({
           игры)
         </span>
       </h2>
-      <div className='flex gap-12 items-center mb-2'>
+      <div className='flex flex-col lg:flex-row gap-y-2 gap-x-12  lg:items-center mb-2'>
         <div className='flex gap-2'>
           <div className='bg-prytki border-white border-[1px] border-solid rounded-lg box-border p-2 text-white w-8 h-8'></div>
           <p className='text-lg'>- На это время занято </p>

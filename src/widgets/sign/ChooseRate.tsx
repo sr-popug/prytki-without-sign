@@ -18,7 +18,7 @@ export default function ChooseRate({
   }
 }) {
   const [activeCard, setActiveCard] = useState('')
-  const [numberOfPlayers, setNumberOfPlayers] = useState(2)
+  const [numberOfPlayers, setNumberOfPlayers] = useState(4)
   function changeNumberOfPlayers(e: React.ChangeEvent<HTMLInputElement>) {
     setNumberOfPlayers(Number(e.target.value))
   }
@@ -45,7 +45,7 @@ export default function ChooseRate({
       </p>
       <div className='flex items-center gap-2'>
         <Input
-          defaultValue={2}
+          defaultValue={numberOfPlayers}
           onChange={changeNumberOfPlayers}
           className='w-16 mt-2 text-lg'
           placeholder='0'
@@ -55,7 +55,7 @@ export default function ChooseRate({
         />
         <p className='text-lg'>Участников</p>
       </div>
-      <div className='flex justify-between gap-2 mt-3'>
+      <div className='flex flex-col lg:flex-row justify-between gap-2 mt-3'>
         {[
           {
             type: 'holidayInDark',
@@ -95,18 +95,18 @@ export default function ChooseRate({
             ],
             minPlayers: 2,
 
-            price: genPrice(numberOfPlayers, 'standard'),
+            price: genPrice(numberOfPlayers, 'standard') + ' ₽',
           },
         ].map((item, index) => (
           <Card
             key={index}
             className={`${activeCard === item.type ? 'border-prytki' : ''} ${
               numberOfPlayers < item.minPlayers ? 'opacity-50' : ''
-            } w-[49%] p-6 text-lg flex flex-col justify-between transition-all duration-300 `}
+            } w-full lg:w-[49%] p-6 text-lg flex flex-col justify-between transition-all duration-300  `}
           >
             <div className='top-content'>
               <header>
-                <div className='flex items-center justify-between g-5'>
+                <div className='flex items-center flex-col-reverse smd:flex-row justify-between g-5'>
                   <h3
                     className={` ${
                       activeCard === item.type ? 'text-prytki' : ''
@@ -118,7 +118,9 @@ export default function ChooseRate({
                     {item.numberOfPlayers}
                   </p>
                 </div>
-                <p className='text-sm text-gray-600'>{item.description}</p>
+                <p className='text-sm text-center smd:text-left text-gray-600'>
+                  {item.description}
+                </p>
               </header>
               <div className='list mt-3'>
                 <p>Что вы получите?</p>
@@ -133,7 +135,7 @@ export default function ChooseRate({
               <button
                 disabled={numberOfPlayers < item.minPlayers}
                 onClick={submitCard}
-                className={`${item.type}  px-16 py-2 text-black rounded-md bg-prytki hover:bg-yellow-600 text-xl disabled:hover:bg-prytki`}
+                className={`${item.type} px-8   smd:px-16 py-2 text-black rounded-md bg-prytki hover:bg-yellow-600 text-xl disabled:hover:bg-prytki`}
               >
                 Выбрать
               </button>

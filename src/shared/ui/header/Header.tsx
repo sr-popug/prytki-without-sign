@@ -1,3 +1,4 @@
+import headerConfig from '@/lib/headerConfig'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './header.module.css'
@@ -18,36 +19,34 @@ export default function Header() {
         <HeaderMenu />
         <nav className='ml-2 hidden xl:block xl:ml-0'>
           <ul className='list-none flex  gap-12 '>
-            {[
-              ['Главная', '/'],
-              ['Товары', '/products'],
-              ['Отзывы', '/feedback'],
-              ['Как до нас добраться?', '/map'],
-            ].map(([title, href]) => (
-              <li key={title}>
-                <Link
-                  className='transition-colors text-nowrap  hover:text-prytki text-xl font-thin '
-                  href={href}
-                >
-                  {title}
-                </Link>
-              </li>
-            ))}
+            {headerConfig.navigation.links.map(
+              link =>
+                !link.hidden && (
+                  <li key={link.title}>
+                    <Link
+                      className='transition-colors text-nowrap  hover:text-prytki block text-xl font-thin text-center'
+                      href={link.href}
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                )
+            )}
           </ul>
         </nav>
         <article className='hidden right ml-24 xl:flex  items-center gap-4'>
           <a
-            href='tel:782017'
+            href={`tel:${headerConfig.contacts.phones[0][1]}`}
             className={`${styles.phone} font-serif text-nowrap text-4xl text-center hover:text-prytki transition-colors`}
           >
-            78-2017
+            {headerConfig.contacts.phones[0][0]}
           </a>
 
           <Link
-            href='/sign'
+            href={headerConfig.navigation.links[4].href}
             className='font-serif text-3xl text-center bg-prytki py-1 px-12 rounded-xl text-black hover:bg-yellow-600 text-nowrap  transition-colors block lg:mr-2'
           >
-            Записаться на игру
+            {headerConfig.navigation.links[4].title}
           </Link>
         </article>
       </div>

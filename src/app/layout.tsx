@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html className='dark' lang='ru'>
+    <html className='dark overflow-x-hidden w-[100vw]' lang='ru'>
       <body
         className={`${handelson.variable} ${jolly.variable} ${goshaSanBold.variable} ${goshaSansRegular.variable} antialiased bg-backgroundPage overflow-x-hidden w-[100vw]`}
       >
