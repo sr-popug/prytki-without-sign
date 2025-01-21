@@ -43,7 +43,7 @@ export default function Prepayment({
   return (
     <article id='prepayment' className='prepayment mt-16'>
       <h2 className='block text-xl  mb-2'>Ваши контактные данные</h2>
-      <div className='flex gap-5 mt-5'>
+      <div className='flex flex-col md:flex-row gap-y-2  gap-x-5 mt-5'>
         <div>
           <p>Ваше имя</p>
           <Input
@@ -61,24 +61,26 @@ export default function Prepayment({
             onChange={phoneChange}
             maxLength={10}
           >
-            +7 (
+            <span className='flex gap-1 text-nowrap'>
+              +7 <span className='smd:block hidden'>(</span>
+            </span>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
               <InputOTPSlot index={1} />
               <InputOTPSlot index={2} />
             </InputOTPGroup>
-            )
+            <span className='smd:block hidden'>)</span>
             <InputOTPGroup>
               <InputOTPSlot index={3} />
               <InputOTPSlot index={4} />
               <InputOTPSlot index={5} />
             </InputOTPGroup>
-            -
+            <span className='smd:block hidden'>-</span>
             <InputOTPGroup>
               <InputOTPSlot index={6} />
               <InputOTPSlot index={7} />
             </InputOTPGroup>
-            -
+            <span className='smd:block hidden'>-</span>
             <InputOTPGroup>
               <InputOTPSlot index={8} />
               <InputOTPSlot index={9} />
@@ -90,7 +92,7 @@ export default function Prepayment({
       <Textarea
         value={contactDataState.contactData.description}
         onChange={descriptionChange}
-        className='w-1/3 h-36'
+        className='w-full md:w-1/3 h-36'
         placeholder='Комментарий'
       />
     </article>

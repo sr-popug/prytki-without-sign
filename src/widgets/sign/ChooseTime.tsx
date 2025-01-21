@@ -143,126 +143,134 @@ export default function ChooseTime({
         </article>
       )}
       {!loading && (
-        <table className='w-full bg-card '>
-          <tbody>
-            <tr>
-              <td className='border-[1px] border-gray-600 border-solid'></td>
-              {times.map((time, i) => (
-                <td
-                  key={i}
-                  className=' text-center p-2 border-collapse border-[1px] border-gray-600 border-solid'
-                >
-                  {time}
-                </td>
-              ))}
-            </tr>
-            {cells.map((date, i) => (
-              <tr key={i}>
-                <td className='border-collapse border-[1px] p-2 border-gray-600 border-solid'>
-                  <p className='text-center '>{date.day}</p>
-                  <p className='text-sm text-center -mt-2 text-gray-700'>
-                    {date.weekDay}
-                  </p>
-                </td>
-                {date.cells.map((cell, j) => (
+        <div className='w-full overflow-x-auto '>
+          <table className='w-full bg-card '>
+            <tbody className=' '>
+              <tr>
+                <td className='border-[1px] border-gray-600 border-solid'></td>
+                {times.map((time, i) => (
                   <td
-                    key={j}
-                    id={' ' + (cell.game?.id || 1)}
-                    className={`${cell.color} border-collapse border-[1px] border-gray-600 border-solid cursor-pointer h-14`}
+                    key={i}
+                    className=' text-center p-2 border-collapse border-[1px] border-gray-600 border-solid'
                   >
-                    {cell.game ? (
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <div className='w-full h-full'></div>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              На это время занято.
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Но вы можете оставить свои контактные данные и мы
-                              сообщим вам, если это время освободится
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <div className='mt-1'>
-                            <Label>Имя</Label>
-                            <Input placeholder='Ваше имя' />
-                          </div>
-                          <div>
-                            <Label>Номер телефона</Label>
-                            <InputOTP maxLength={10}>
-                              +7 (
-                              <InputOTPGroup>
-                                <InputOTPSlot index={0} />
-                                <InputOTPSlot index={1} />
-                                <InputOTPSlot index={2} />
-                              </InputOTPGroup>
-                              )
-                              <InputOTPGroup>
-                                <InputOTPSlot index={3} />
-                                <InputOTPSlot index={4} />
-                                <InputOTPSlot index={5} />
-                              </InputOTPGroup>
-                              -
-                              <InputOTPGroup>
-                                <InputOTPSlot index={6} />
-                                <InputOTPSlot index={7} />
-                              </InputOTPGroup>
-                              -
-                              <InputOTPGroup>
-                                <InputOTPSlot index={8} />
-                                <InputOTPSlot index={9} />
-                              </InputOTPGroup>
-                            </InputOTP>
-                          </div>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Отмена</AlertDialogCancel>
-                            <AlertDialogAction
-                              data-time={cell.time}
-                              data-date={cell.day}
-                              onClick={addInExpectationList}
-                            >
-                              Подтвердить
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    ) : (
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <div className='w-full h-full'></div>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Забронировать время
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Вы действительно хотите выбрать это время?
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Отмена</AlertDialogCancel>
-                            <AlertDialogAction
-                              data-time={cell.time}
-                              data-date={cell.day}
-                              onClick={chooseTime}
-                            >
-                              Подтвердить
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    )}
+                    {time}
                   </td>
-                  // поиск по id не в призма а среди игр
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+              {cells.map((date, i) => (
+                <tr key={i}>
+                  <td className='border-collapse border-[1px] p-2 border-gray-600 border-solid'>
+                    <p className='text-center text-sm lg:text-lg text-nowrap'>
+                      {date.day}
+                    </p>
+                    <p className='text-[10px] lg:text-sm text-center -mt-2 text-gray-700'>
+                      {date.weekDay}
+                    </p>
+                  </td>
+                  {date.cells.map((cell, j) => (
+                    <td
+                      key={j}
+                      id={' ' + (cell.game?.id || 1)}
+                      className={`${cell.color} border-collapse border-[1px] border-gray-600 border-solid cursor-pointer h-14`}
+                    >
+                      {cell.game ? (
+                        // изменять на smd
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <div className='w-full h-full'></div>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent className='smd:p-6 px-2 py-6'>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                На это время занято.
+                              </AlertDialogTitle>
+                              <AlertDialogDescription className=' '>
+                                Но вы можете оставить свои контактные данные и
+                                мы сообщим вам, если это время освободится
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <div className='mt-1'>
+                              <Label>Имя</Label>
+                              <Input className='' placeholder='Ваше имя' />
+                            </div>
+                            <div>
+                              <Label>Номер телефона</Label>
+                              <InputOTP maxLength={10}>
+                                <span className='smd:text-lg text-[10px]'>
+                                  +7
+                                </span>{' '}
+                                <span className='smd:block hidden'>(</span>
+                                <InputOTPGroup>
+                                  <InputOTPSlot index={0} />
+                                  <InputOTPSlot index={1} />
+                                  <InputOTPSlot index={2} />
+                                </InputOTPGroup>
+                                <span className='smd:block hidden'>)</span>
+                                <InputOTPGroup>
+                                  <InputOTPSlot index={3} />
+                                  <InputOTPSlot index={4} />
+                                  <InputOTPSlot index={5} />
+                                </InputOTPGroup>
+                                <span className='smd:block hidden'>-</span>
+                                <InputOTPGroup>
+                                  <InputOTPSlot index={6} />
+                                  <InputOTPSlot index={7} />
+                                </InputOTPGroup>
+                                <span className='smd:block hidden'>-</span>
+                                <InputOTPGroup>
+                                  <InputOTPSlot index={8} />
+                                  <InputOTPSlot index={9} />
+                                </InputOTPGroup>
+                              </InputOTP>
+                            </div>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Отмена</AlertDialogCancel>
+                              <AlertDialogAction
+                                data-time={cell.time}
+                                data-date={cell.day}
+                                onClick={addInExpectationList}
+                              >
+                                Подтвердить
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      ) : (
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <div className='w-full h-full'></div>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Забронировать время
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Вы действительно хотите выбрать это время?
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Отмена</AlertDialogCancel>
+                              <AlertDialogAction
+                                data-time={cell.time}
+                                data-date={cell.day}
+                                onClick={chooseTime}
+                              >
+                                Подтвердить
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      )}
+                    </td>
+                    // поиск по id не в призма а среди игр
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </article>
   )
