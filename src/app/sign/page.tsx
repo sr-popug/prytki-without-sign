@@ -1,3 +1,4 @@
+import headerConfig from '@/lib/headerConfig'
 import { Phone } from 'lucide-react'
 import Image from 'next/image'
 
@@ -21,8 +22,9 @@ export default function SignPage() {
       </header>
       <section className='flex   gap-10 mt-5 flex-wrap'>
         <a
-          href='https://vk.com/tamtemnomurmansk'
-          className='flex items-center flex-col border border-gray-800 rounded-xl p-6 hover:bg-neutral-950  transition-all hover:scale-[1.02]'
+          target='_blank'
+          href={headerConfig.contacts.vk}
+          className='flex items-center flex-col w-full md:w-auto border border-gray-800 rounded-xl p-6 hover:bg-neutral-950  transition-all hover:scale-[1.02]'
         >
           <Image
             src='/vk.svg'
@@ -35,12 +37,14 @@ export default function SignPage() {
           <p className='text-prytki text-lg'>Прятки Мурманск</p>
         </a>
         <a
-          href='https://vk.com/tamtemnomurmansk'
-          className='flex items-center flex-col border border-gray-800 rounded-xl p-6 hover:bg-neutral-950  transition-all hover:scale-[1.02]'
+          href={`tel:${headerConfig.contacts.phones[0][1]}`}
+          className='flex items-center flex-col w-full md:w-auto border border-gray-800 rounded-xl p-6 hover:bg-neutral-950  transition-all hover:scale-[1.02]'
         >
           <Phone height={100} width={100} className='block mb-6' />
           <h3 className='text-2xl'> Запись по телефону</h3>
-          <p className='text-prytki text-lg'>78-2017</p>
+          <p className='text-prytki text-lg'>
+            {headerConfig.contacts.phones[0][0]}
+          </p>
         </a>
       </section>
     </article>
