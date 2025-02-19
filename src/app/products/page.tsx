@@ -67,7 +67,7 @@ export default function ProductsPage() {
                 <Link
                   target='_blank'
                   href={el.link}
-                  className='block w-fit text-prytki px-5 py-2 border border-prytki	border-solid rounded-lg box-border mt-5 hover:bg-prytki hover:text-black transition-colors duration-300 w-full text-center text-lg'
+                  className='block text-prytki px-5 py-2 border border-prytki	border-solid rounded-lg box-border mt-5 hover:bg-prytki hover:text-black transition-colors duration-300 w-full text-center text-lg'
                 >
                   Купить
                 </Link>

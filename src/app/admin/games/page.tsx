@@ -2,6 +2,8 @@ import AddGame from '@/widgets/admin/games/AddGame'
 import GameList from '@/widgets/admin/games/GamesList'
 import Auth from '@/widgets/Auth'
 import Image from 'next/image'
+import React from 'react'
+
 export default function GamesPageAdmin() {
   return (
     <Auth>

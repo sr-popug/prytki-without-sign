@@ -184,7 +184,7 @@ export default function ChooseTime({
                               <AlertDialogTitle>
                                 На это время занято.
                               </AlertDialogTitle>
-                              <AlertDialogDescription className=' '>
+                              <AlertDialogDescription >
                                 Но вы можете оставить свои контактные данные и
                                 мы сообщим вам, если это время освободится
                               </AlertDialogDescription>
